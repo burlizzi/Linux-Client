@@ -269,7 +269,13 @@ public:
 			}
     	}
     }
-
+ bool write_bucket(const char* bucket_id, pson& data, bool confirm_write=false){
+            thinger_message message;
+            message.set_signal_flag(thinger_message::BUCKET_DATA);
+            message.set_identifier(bucket_id);
+            message.set_data(data);
+            return send_message_with_ack(message, confirm_write);
+        }
 protected:
 
 	virtual bool to_socket(const uint8_t* buffer, size_t size){
